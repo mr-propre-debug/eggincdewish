@@ -78,10 +78,16 @@ def game_menu():
         magnitude = int(floor(log(number, k)))
         return '%.2f%s' % (number / k**magnitude, units[magnitude])
 
-    def save(data):
+    def save():
         with open('data/data.json', 'w') as f:
             json.dump(data, f)
         f.close()
+
+    def manualSave():
+        with open('data/data.json', 'w') as f:
+            json.dump(data, f)
+        f.close()
+        root.destroy()
 
     timeToAddMoney = USEREVENT + 1
     pygame.time.set_timer(timeToAddMoney, 1000)
@@ -112,15 +118,28 @@ def game_menu():
 
             #pour checker si un bouton est cliqué
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                #pour quitter
                 if generateChicken.checkForInput(game_mouse_pos):
                     chickens += 1
                     eggs += chickens * 2
                 
+                if settings.checkForInput(game_mouse_pos):
+                    root= tk.Tk()
+
+                    canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
+                    canvas1.pack()
+
+                    label1 = tk.Label(root, text='Save')
+                    label1.config(font=('assets/font.ttf', 14))
+                    canvas1.create_window(200, 25, window=label1)
+
+                    button1 = tk.Button(text='save', command=manualSave, bg='brown', fg='white', font=('assets/font.ttf', 9, 'bold'))
+                    canvas1.create_window(200, 50, window=button1)
+
+                    root.mainloop()
             #pour quitter avec echap
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    save(data)
+                    save()
                     pygame.quit()
                     sys.exit()
                 
@@ -131,7 +150,7 @@ def game_menu():
                 money += addMoney(chickens, moneyMultiplier)
             
             elif event.type == autoSave:
-                save(data)
+                save()
 
             #pour actualiser l'affichage
             pygame.display.flip()
