@@ -27,7 +27,8 @@ height = 720
 screen = pygame.display.set_mode((width, height))
 
 # backgrounds
-bgMenu = bgMenu = pygame.image.load("assets/images/bgMenu.jpg")
+bgMenu = pygame.image.load("assets/images/bgMenu.jpg")
+bgGame = pygame.image.load("assets/images/bgGame.jpg")
 
 #volume du jeu
 volume = 1.0
@@ -49,7 +50,7 @@ with open("data/data.json", "ab+") as ab:
 
 def game_menu():
     pygame.display.set_caption("Generating chickens")
-    screen.fill((0,0,0))
+    screen.fill((255,255,255))
 
     with open("data/data.json", 'r') as f:
         data = json.load(f)
@@ -89,7 +90,7 @@ def game_menu():
     pygame.time.set_timer(autoSave, 30000)
 
     while True:
-        # screen.blit(bgGame, (0,0))
+        screen.blit(bgGame, (0,0))
 
         #pour avoir la position de la souris
         game_mouse_pos = pygame.mouse.get_pos()
@@ -97,8 +98,9 @@ def game_menu():
         generateChicken = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,670), text_input="More chicken", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
         moneyDisplay = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,50), text_input=f"{human_format(money)} $", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
         chickensDisplay = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,159), text_input=f"chickens : {human_format(chickens)}", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        settings = Button(image=pygame.image.load("assets/images/settings.png"), pos=(30, 30), text_input=" ", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
 
-        for button in [generateChicken, moneyDisplay, chickensDisplay]:
+        for button in [generateChicken, moneyDisplay, chickensDisplay, settings]:
             button.changeColor(game_mouse_pos)
             button.update(screen)
 
@@ -107,6 +109,7 @@ def game_menu():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
             #pour checker si un bouton est cliqué
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 #pour quitter
@@ -117,6 +120,7 @@ def game_menu():
             #pour quitter avec echap
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
+                    save(data)
                     pygame.quit()
                     sys.exit()
                 
