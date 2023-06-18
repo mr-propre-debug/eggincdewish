@@ -101,12 +101,13 @@ def game_menu():
         #pour avoir la position de la souris
         game_mouse_pos = pygame.mouse.get_pos()
 
-        generateChicken = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,670), text_input="More chicken", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
-        moneyDisplay = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,50), text_input=f"{human_format(money)} $", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
-        chickensDisplay = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,159), text_input=f"chickens : {human_format(chickens)}", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        generateChicken = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,655), text_input="More chicken", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        moneyDisplay = Button(image=pygame.image.load("assets/images/Play Rect.png"), pos=(640,50), text_input=f"{human_format(money)} $", font=get_font(57), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        chickensDisplay = Button(image=pygame.image.load("assets/images/invisible rect.png"), pos=(640,90), text_input=f"chickens : {human_format(chickens)}", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
         settings = Button(image=pygame.image.load("assets/images/settings.png"), pos=(30, 30), text_input=" ", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+        shopButton = Button(image=pygame.image.load("assets/images/shop 128.png"), pos=(892, 651), text_input=" ", font=get_font(65), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
 
-        for button in [generateChicken, moneyDisplay, chickensDisplay, settings]:
+        for button in [generateChicken, moneyDisplay, chickensDisplay, settings, shopButton]:
             button.changeColor(game_mouse_pos)
             button.update(screen)
 
@@ -136,6 +137,7 @@ def game_menu():
                     canvas1.create_window(200, 50, window=button1)
 
                     root.mainloop()
+                
             #pour quitter avec echap
             elif event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
@@ -145,6 +147,16 @@ def game_menu():
                 
                 if event.key == K_DOLLAR:
                     money += 100_000_000
+                
+                if event.key == K_a:
+                    money -= 10**9
+                    if money < 0:
+                        money = 0
+                    save()
+
+                if event.key == K_z:
+                    moneyMultiplier *= 1.5
+                    save()
 
             elif event.type == timeToAddMoney:
                 money += addMoney(chickens, moneyMultiplier)
