@@ -3,18 +3,7 @@ from pygame.locals import *
 
 from button import Button
 
-import tkinter as tk
-from tkinter import messagebox
+from menu import MainMenu
 
-import os
 
-import json
-
-import random
-
-sys.path.insert(1, "main_menu")
-
-from menu import Menu
-
-menu = Menu
-print(menu)
+main = MainMenu("Main Menu", 1280, 720, "assets/images/bgMenu.jpg")
