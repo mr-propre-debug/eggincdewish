@@ -11,3 +11,10 @@ import os
 import json
 
 import random
+
+sys.path.insert(1, "main_menu")
+
+from menu import Menu
+
+menu = Menu
+print(menu)
