@@ -17,8 +17,6 @@ from threading import Timer
 
 from math import log, floor
 
-print("test save github")
-
 #initialisation de pygame et pour l'affichage
 pygame.init()
 clock = pygame.time.Clock()
