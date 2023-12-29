@@ -99,6 +99,7 @@ class Game(Window):
                         data["money"] += 100_000_000
 
                 elif event.type == timeToAddMoney:
+
                     data["money"] += addMoney(data["chickens"], data["eggLayingRate"], data["moneyMultiplier"])
                 
                 elif event.type == autoSave:
