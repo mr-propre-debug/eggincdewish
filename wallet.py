@@ -18,8 +18,12 @@ class Wallet:
             print("vous êtes à découvert")
         else:
             self._balance -= amount
-
     def __str__(self):
-        s = str(self.balance) + 
+        return "Votre compte".center(30, "-") + "\n" + "Vous avez " + str(self.balance) + "$"
+    
+    def affichage(self):
+        return str(self)
+
+    
 
     balance = property(_get_balance, _set_balance)
