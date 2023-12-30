@@ -1,2 +1,3 @@
 # ignore ALL .log files
 *.json
+data/data.json
